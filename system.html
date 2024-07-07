@@ -87,14 +87,104 @@
             margin-right: 5px;
             padding-left: 10px;
           }
+          body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: 'Raleway';
+          }
+          
+          div.c1 {
+            height: 50px;
+            width: 100%;
+            background-color: #111;
+            position: fixed;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+          }
+          
+          div.c1 img.icon {
+            width: 60px;
+            height: auto;
+          }
+          
+          div.c1 span.titulo {
+            color: #FFF;
+            position: absolute;
+            margin-top: 13px;
+            font-size: 20px;
+          }
+          
+          .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 70px;
+            font-family: 'Raleway';
+          }
+          
+          input, textarea, div.contentEditable {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+          }
+          
+          button {
+            margin: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Raleway';
+            border: 1.5px solid black;
+            border-radius: 30px;
+            background-color: #111;
+            color: white;
+          }
+          
+          .approved {
+            color: green;
+          }
+          
+          .highlight {
+            font-weight: bold;
+          }
+          
+          .contentEditable {
+            width: 300px;
+            height: 200px;
+            font-family: 'Raleway';
+            background-color: #111;
+            color: white;
+            border: 1.5px solid whitesmoke;
+            border-radius: 10px;
+          }
+          
+          #namesInput{
+            font-family: 'Raleway';
+            background-color: #111;
+            color: white;
+            border: 1.5px solid whitesmoke;
+            border-radius: 10px;
+            text-align: center;
+          }
+          
+          #inputField{
+            font-family: 'Raleway';
+            background-color: #111;
+            color: white;
+            border: 1.5px solid whitesmoke;
+            border-radius: 10px;
+            text-align: center;
+          }
         </style>
     </head>
     <body>
         <div class="c1">
-            <img src="/home/buraco.png" alt="Ícone" class="icon">
+            <img src="https://i.imgur.com/LLy85iB.png" alt="Ícone" class="icon">
             <span class="titulo">Stronger Lab</span>
             <div class="menu-container">
-                <img src="/home/menub.png" alt="Menu" class="menu-button" onclick="toggleMenu()">
+                <img src="https://i.imgur.com/Z8MPUzU.png" alt="Menu" class="menu-button" onclick="toggleMenu()">
                 <div class="dropdown-content" id="menuDropdown">
                     <a href="home.html">Home</a>
                     <a href="system.html">Checker</a>
@@ -140,7 +230,90 @@
                   }
               }
           }
+              let names = [];
+              let currentIndex = 0;
+              let approvedNames = [];
           
+              function loadNames() {
+                  const namesText = document.getElementById("namesInput").value;
+                  names = namesText.split('\n').map(name => name.trim()).filter(name => name);
+                  currentIndex = 0;
+                  if (names.length > 0) {
+                      updateInput();
+                  }
+              }
+          
+              function updateInput() {
+                  if (names.length === 0) return;
+                  const name = names[currentIndex];
+                  const extractedName = name.match(/\((.*?)\)/)[1];
+                  document.getElementById("inputField").value = extractedName;
+              }
+          
+              function copyText() {
+                  const input = document.getElementById("inputField");
+                  input.select();
+                  document.execCommand("copy");
+              }
+          
+              function copyAllText() {
+                  const output = document.getElementById("outputField");
+                  const range = document.createRange();
+                  range.selectNodeContents(output);
+                  const selection = window.getSelection();
+                  selection.removeAllRanges();
+                  selection.addRange(range);
+                  document.execCommand("copy");
+              }
+          
+              function nextName() {
+                  if (names.length === 0) return;
+                  currentIndex = (currentIndex + 1) % names.length;
+                  updateInput();
+              }
+          
+              function prevName() {
+                  if (names.length === 0) return;
+                  currentIndex = (currentIndex - 1 + names.length) % names.length;
+                  updateInput();
+              }
+          
+              function updateOutputField() {
+                  const output = document.getElementById("outputField");
+                  const report = `Aprovados:\n${approvedNames.join('\n')}`;
+          
+                  output.innerText = report;
+              }
+          
+              function approveName() {
+                  const input = document.getElementById("inputField");
+                  const name = names[currentIndex];
+                  approvedNames.push(name);
+                  names.splice(currentIndex, 1);
+                  if (currentIndex >= names.length) {
+                      currentIndex = 0;
+                  }
+                  if (names.length > 0) {
+                      updateInput();
+                  } else {
+                      document.getElementById("inputField").value = '';
+                  }
+                  updateOutputField();
+              }
+          
+              function rejectName() {
+                  names.splice(currentIndex, 1);
+                  if (currentIndex >= names.length) {
+                      currentIndex = 0;
+                  }
+                  if (names.length > 0) {
+                      updateInput();
+                  } else {
+                      document.getElementById("inputField").value = '';
+                  }
+              }
+
+    document.addEventListener("DOMContentLoaded", updateInput);
         </script>
     </body>
   </html>
