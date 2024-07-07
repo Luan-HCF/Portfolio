@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="/home/style.css">
+        <link rel="stylesheet" href="/system/styles.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        <title>Home</title>
+    </head>
+    <body>
+        <div class="c1">
+            <img src="/home/buraco.png" alt="Ícone" class="icon">
+            <span class="titulo">Stronger Lab</span>
+            <div class="menu-container">
+                <img src="/home/menub.png" alt="Menu" class="menu-button" onclick="toggleMenu()">
+                <div class="dropdown-content" id="menuDropdown">
+                    <a href="/home.html">Home</a>
+                    <a href="/system.html">Checker</a>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <textarea id="namesInput" rows="5" cols="30" placeholder="Insira somente os nomes aqui"></textarea>
+            <button onclick="loadNames()">Registrar Nomes</button>
+            <input type="text" id="inputField" placeholder=" - Nomes - ">
+            <button onclick="copyText()">Copiar</button>
+            <div>
+                <button onclick="prevName()">Anterior</button>
+                <button onclick="nextName()">Próximo</button>
+            </div>
+            <div id="outputField" class="contentEditable" contenteditable="true"></div>
+            <div>
+                <button onclick="approveName()">Aprovar</button>
+                <button onclick="rejectName()">Reprovar</button>
+            </div>
+            <button onclick="copyAllText()">Copiar Tudo</button>
+        </div>
+
+        <script src="/home/main.js"></script>
+        <script src="/system/main.js"></script>
+    </body>
+  </html>
