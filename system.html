@@ -10,6 +10,84 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <title>Home</title>
+        <style>
+          body {
+            background-color: #1B1B1B;
+            font-family: 'Raleway', Arial, Helvetica, sans-serif;
+            margin: 0;
+            display: flex;
+          }
+          
+          div.c1 {
+            height: 50px;
+            width: 100%;
+            background-color: #111;
+            position: fixed;
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+          }
+          
+          div.c1 img.icon {
+            width: 60px;
+            height: auto;
+          }
+          div.c1 span.titulo {
+            color: #FFF;
+            position: absolute;
+            margin-top: 13px;
+            font-size: 20px;
+          }
+          .menu-container {
+              position: absolute;
+              top: 5px;
+              right: 15px;
+              -webkit-tap-highlight-color: transparent;
+          }
+          
+          .menu-button {
+              width: 40px;
+              height: auto;
+              cursor: pointer;
+          }
+          
+          .dropdown-content {
+              display: none;
+              position: absolute;
+              right: 0;
+              border: 2px solid black;
+              border-radius: 15px;
+              background-color: #f9f9f9;
+              min-width: 160px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+          }
+          
+          .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+          }
+          
+          .dropdown-content a:hover {
+              background-color: #f1f1f1;
+          }
+          
+          div.conteudo {
+            color: white;
+            margin-top: 30px;
+          }
+          h1.sm {
+            padding-top: 30px;
+            font-size: 30px;
+            text-align: center;
+            text-shadow: 0px 8px 16px black;
+          }
+          p.psm {
+            margin-left: 10px;
+            margin-right: 5px;
+            padding-left: 10px;
+          }
+        </style>
     </head>
     <body>
         <div class="c1">
@@ -18,8 +96,8 @@
             <div class="menu-container">
                 <img src="/home/menub.png" alt="Menu" class="menu-button" onclick="toggleMenu()">
                 <div class="dropdown-content" id="menuDropdown">
-                    <a href="/home.html">Home</a>
-                    <a href="/system.html">Checker</a>
+                    <a href="home.html">Home</a>
+                    <a href="system.html">Checker</a>
                 </div>
             </div>
         </div>
@@ -39,8 +117,30 @@
             </div>
             <button onclick="copyAllText()">Copiar Tudo</button>
         </div>
-
-        <script src="/home/main.js"></script>
-        <script src="/system/main.js"></script>
+        <script>
+          // Função para alternar a visibilidade do menu
+          function toggleMenu() {
+              var menu = document.getElementById("menuDropdown");
+              if (menu.style.display === "block") {
+                  menu.style.display = "none"; // Esconde o menu se estiver visível
+              } else {
+                  menu.style.display = "block"; // Mostra o menu se estiver oculto
+              }
+          }
+          
+          // Evento que fecha o menu ao clicar fora dele
+          window.onclick = function(event) {
+              if (!event.target.matches('.menu-button')) { // Verifica se o elemento clicado não é um botão do menu
+                  var dropdowns = document.getElementsByClassName("dropdown-content");
+                  for (var i = 0; i < dropdowns.length; i++) {
+                      var openDropdown = dropdowns[i];
+                      if (openDropdown.style.display === "block") { // Verifica se o menu está visível
+                          openDropdown.style.display = "none"; // Esconde o menu
+                      }
+                  }
+              }
+          }
+          
+        </script>
     </body>
   </html>
